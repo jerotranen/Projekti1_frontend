@@ -1,8 +1,8 @@
-import React from 'react';
-import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
-import styled from 'styled-components';
-import Events from './Events';
-import SkiTrips from './SkiTrips';
+import React from "react";
+import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
+import styled from "styled-components";
+import Events from "./Events";
+import SkiTrips from "./SkiTrips";
 
 const Home = () => (
   <Content>
@@ -14,9 +14,7 @@ const Home = () => (
 const About = () => (
   <Content>
     <h1>Meistä</h1>
-    <p>
-      Turun teknillinen skimbakerho! kertokaa ny jotai itestänne vittu
-    </p>
+    <p>Turun teknillinen skimbakerho! kertokaa ny jotai itestänne vittu</p>
   </Content>
 );
 
@@ -32,33 +30,33 @@ const App = () => (
   <Router>
     <BackgroundContainer>
       <Header>
-        <Logo to="/">Teski</Logo>
+        <Logo to="/teski">Teski</Logo>
         <Nav>
-          <NavLink to="/">Koti</NavLink>
-          <NavLink to="/about">Meistä</NavLink>
+          <NavLink to="/teski">Koti</NavLink>
+          <NavLink to="/teski/about">Meistä</NavLink>
           <Dropdown>
             <DropdownTitle>Ajankohtaista</DropdownTitle>
             <DropdownContent>
-              <NavLink to="/events">Tapahtumat</NavLink>
-              <NavLink to="/ski-trips">Laskettelureissut</NavLink>
+              <NavLink to="/teski/events">Tapahtumat</NavLink>
+              <NavLink to="/teski/ski-trips">Laskettelureissut</NavLink>
             </DropdownContent>
           </Dropdown>
-          <NavLink to="/contact">Yhteystiedot/Somet</NavLink>
+          <NavLink to="/teski/contact">Yhteystiedot/Somet</NavLink>
         </Nav>
       </Header>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/ski-trips" element={<SkiTrips />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/teski/" element={<Home />} />
+        <Route path="/teski/about" element={<About />} />
+        <Route path="/teski/events" element={<Events />} />
+        <Route path="/teski/ski-trips" element={<SkiTrips />} />
+        <Route path="/teski/contact" element={<Contact />} />
       </Routes>
     </BackgroundContainer>
   </Router>
 );
 
 const BackgroundContainer = styled.div`
-  background-image: url('https://i.imgur.com/53BiitD.png');
+  background-image: url("https://i.imgur.com/53BiitD.png");
   background-size: 30%; /* Change 'cover' to 'contain', '100%', or specific dimensions as needed */
   background-repeat: no-repeat;
   background-position: center bottom 20%;
@@ -116,7 +114,6 @@ const Dropdown = styled.div`
 
   /* No changes needed here */
 `;
-
 
 const DropdownContent = styled.div`
   display: none;
