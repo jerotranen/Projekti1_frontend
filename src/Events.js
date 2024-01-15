@@ -1,18 +1,25 @@
 import React from 'react';
 import styled, {keyframes} from 'styled-components';
+import {Heading, SubHeading} from './App';
 
 const Events = () => (
     <EventsBackground>
-      <Content>
-    <h1>Tulevat/Menneet tapahtumat</h1>
-    <p><strong>Tulevat:</strong></p>
+    <Content>
+    <Heading>Tulevat/Menneet tapahtumat</Heading>
+    <SubHeading><strong>Tulevat:</strong></SubHeading>
     <p>
-      Lajikokeilu
+      ;)
     </p>
     <br />
-    <p><strong>Menneet:</strong></p>
+    <SubHeading><strong>Menneet:</strong></SubHeading>
     <p>
-      Teekkarirastikierros
+      Teskin pikkujoulut
+    </p>
+    <p>
+      Kiipeily
+    </p>
+    <p>
+      Paintball
     </p>
     <p>
       Eldprowet
@@ -43,24 +50,26 @@ const EventsBackground = styled.div`
   background-position: center;
   min-height: 100vh;
   background-attachment: fixed;
-
-  animation: ${fadeIn} 1s ease-in-out; /* Adjust the duration and easing as needed */
-  /* Set a background color for the initial blank background */
+  animation: ${fadeIn} 1s ease-in-out; 
   background-color: rgba(255, 255, 255, 0);
-
-  /* Set the initial background image to a blank/transparent image */
-  background-image: url('https://i.imgur.com/ovZdoCU.jpg');
-  /* Replace the blank image above with your actual background image URL */
-
 `;
 
 const Content = styled.div`
   max-width: 600px;
   margin: 0px auto;
   padding: 20px;
-  background-color: rgba(247, 247, 247, 0.8); /* Use RGBA color with reduced opacity */
+  background-color: rgba(247, 247, 247, 0.75);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
+  p {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); 
+  }
+  @media (max-width: 768px) {
+    max-width: 70%; /* Adjust the width for mobile */
+    padding: 20px; /* Adjust padding for mobile */
+    font-size: 16px; /* Adjust font size for mobile */
+    /* Add any other mobile-specific styles here */
+  }
 `;
 
 export default Events;
