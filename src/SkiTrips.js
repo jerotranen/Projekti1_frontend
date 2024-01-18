@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react';
 import styled, {keyframes} from 'styled-components';
-import { Heading, SubHeading, Banner, BannerImage, NavLinkApply, AboutContent} from './App';
+import { Heading, SubHeading, Banner, BannerImage, NavLinkApply, AboutContent} from './style';
 import CountdownTimer from './CountdownTimer';
 
 const SkiTrips = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, {keyframes} from 'styled-components';
-import {Heading, SubHeading} from './App';
+import {Heading, SubHeading} from './style';
 
 const Events = () => (
     <EventsBackground>

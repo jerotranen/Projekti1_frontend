@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom'; 
-import { NavLinkApply} from './App';
+import { NavLinkApply} from './style';
 
 const CountdownTimer = () => {
   const [countdown, setCountdown] = useState(null);
