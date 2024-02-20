@@ -17,12 +17,6 @@ const About = () => (
       </p>
     </Content>
   </AboutContent>
-  <ExtraInfoBox>
-    <h2>Hallitus</h2>
-    <p>
-    Lisää tietoa tulossa, yhteydenotot sähköpostitse tai Instagramissa
-    </p>
-  </ExtraInfoBox>
   </AboutBackground>
   );
 

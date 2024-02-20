@@ -1,7 +1,8 @@
 import React, {useState, useRef} from 'react';
 import styled, {keyframes} from 'styled-components';
-import { Heading, SubHeading, Banner, BannerImage, NavLinkApply, AboutContent} from './style';
+import { Heading, SubHeading, Banner, BannerImage, NavLinkApply, AboutContent, ExtraInfoBox, fadeIn, GeneralBG} from './style';
 import CountdownTimer from './CountdownTimer';
+import About from './About';
 
 const SkiTrips = () => {
   const [isTextVisible, setIsTextVisible] = useState(false);
@@ -12,16 +13,22 @@ const SkiTrips = () => {
 
   return (
     <SkiTripsWrapper>
-    <SkiTripsBackground>
+    <GeneralBG backgroundUrl='https://i.imgur.com/ZzGQQtm.jpg'>
       <AboutContent>
         <Content>
           <Heading>Kauden tulevat laskettelureissut</Heading>
-          <BannerImage src="https://i.imgur.com/Uc2zeOM.png" alt="Juuri nyt" />
+          <BannerImage src="https://i.imgur.com/5XKLfl0.jpg" alt="Juuri nyt" />
           <p></p>
           {/* <CountdownTimer /> */}
         </Content>
       </AboutContent>
-    </SkiTripsBackground>
+      <AboutContent>
+        <Content>
+          <Heading>Kauden menneet laskettelureissut</Heading>
+          <BannerImage src="https://i.imgur.com/Uc2zeOM.png" alt="Juuri nyt" />
+        </Content>
+      </AboutContent>
+      </GeneralBG>
     <ExtraInfoBox>
         <button onClick={toggleTextVisibility}>
           {isTextVisible ? "Piilota" : "MATKAEHDOT"}
@@ -119,35 +126,6 @@ Matkustajan oikeudet ja velvollisuudet: The passenger’s rights and responsibil
 };
 
 const SkiTripsWrapper = styled.div`
-`;
-
-const ExtraInfoBox = styled.div`
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: rgba(247, 247, 247, 1);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-`;
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-const SkiTripsBackground = styled.div`
-  background-image: url('https://i.imgur.com/8QlVnCl.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  min-height: 100vh;
-  background-attachment: scroll;
-  overflow: hidden;
-  animation: ${fadeIn} 1s ease-in-out;
 `;
 
 const Content = styled.div`

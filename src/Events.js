@@ -1,9 +1,9 @@
 import React from 'react';
 import styled, {keyframes} from 'styled-components';
-import {Heading, SubHeading} from './style';
+import {Heading, SubHeading, fadeIn, GeneralBG} from './style';
 
 const Events = () => (
-    <EventsBackground>
+    <GeneralBG backgroundUrl='https://i.imgur.com/ovZdoCU.jpg'>
     <Content>
     <Heading>Tulevat/Menneet tapahtumat</Heading>
     <SubHeading><strong>Tulevat:</strong></SubHeading>
@@ -31,28 +31,8 @@ const Events = () => (
       Teski x WSP Sappee
     </p>
     </Content>
-    </EventsBackground>
+    </GeneralBG>
 );
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-const EventsBackground = styled.div`
-  background-image: url('https://i.imgur.com/ovZdoCU.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  min-height: 100vh;
-  background-attachment: fixed;
-  animation: ${fadeIn} 1s ease-in-out; 
-  background-color: rgba(255, 255, 255, 0);
-`;
 
 const Content = styled.div`
   max-width: 600px;
@@ -65,10 +45,9 @@ const Content = styled.div`
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); 
   }
   @media (max-width: 768px) {
-    max-width: 70%; /* Adjust the width for mobile */
-    padding: 20px; /* Adjust padding for mobile */
-    font-size: 16px; /* Adjust font size for mobile */
-    /* Add any other mobile-specific styles here */
+    max-width: 70%;
+    padding: 20px; 
+    font-size: 16px;
   }
 `;
 

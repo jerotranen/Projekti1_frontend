@@ -2,10 +2,10 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
-import { JaseneksiBackground, Content, NavLinkApply} from "./style"
+import { Content, NavLinkApply, GeneralBG} from "./style"
 
 const Jaseneksi = () => (
-    <JaseneksiBackground>
+    <GeneralBG backgroundUrl="https://i.imgur.com/bLUFloS.jpg">
       <Content>
         <div style={{ margin: '10px 0' }}></div>
         <p>Valitse alla olevista vaihtoehdoista itseäsi koskeva vaihtoehto.</p>
@@ -20,7 +20,7 @@ const Jaseneksi = () => (
             </NavLinkApply>
       </div>
       </Content>
-    </JaseneksiBackground>
+    </GeneralBG>
   );
 
 export default Jaseneksi;

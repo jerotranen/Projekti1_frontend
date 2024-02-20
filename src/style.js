@@ -13,16 +13,13 @@ const fadeIn = keyframes`
 
 const AboutBackground = styled.div`
   position: relative;
-  background-image: url('https://cdn.discordapp.com/attachments/1136046313314730060/1150843263679467570/IMG_8253.jpg');
+  background-image: url('https://i.imgur.com/TX7zQsw.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: 25% 75%;
   min-height: 100vh;
   background-attachment: fixed;
   animation: ${fadeIn} 1s ease-in-out;
-  @media (min-width: 769px) {
-    background-image: url('https://cdn.discordapp.com/attachments/1136046313314730060/1150845049073041498/44d08cda-da38-4f9a-af75-cdc3941f51d7.jpg');
-  }
 `;
 
 const AboutContent = styled.div`
@@ -34,6 +31,9 @@ const AboutContent = styled.div`
   text-align: center;
   height: 780px;
   overflow-y: auto;
+  @media (max-width: 768px) {
+    height: 650px;
+  }
 `;
 
 const ExtraInfoBox = styled.div`
@@ -43,17 +43,6 @@ const ExtraInfoBox = styled.div`
   background-color: rgba(247, 247, 247, 0.55);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
-`;
-
-const JaseneksiBackground = styled.div`
-  position: relative;
-  background-image: url('https://i.imgur.com/bLUFloS.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  min-height: 100vh;
-  background-attachment: fixed;
-  animation: ${fadeIn} 1s ease-in-out;
 `;
 
 const NavLinkInstagram = styled(Link)`
@@ -116,18 +105,6 @@ body {
 }
 `;
 
-const HomeBackground = styled.div`
-position: relative;
-background-image: url('https://i.imgur.com/8uWZiLr.jpg');
-background-size: cover;
-background-repeat: no-repeat;
-background-position: center;
-min-height: 100vh;
-background-attachment: fixed;
-animation: ${fadeIn} 1s ease-in-out;
-background-color: rgba(255, 255, 255, 0);
-`;
-
 const Banner = styled.div`
 display: flex;
 flex-direction: row;
@@ -156,6 +133,7 @@ font-size: 20px;
 color: #FFD700;
 margin: 0;
 padding: 10px;
+
 `;
 
 const BannerText = styled.p`
@@ -181,6 +159,19 @@ padding: 10px;
 text-decoration: none;
 border-radius: 4px;
 font-weight: bold;
+&:hover {
+  background-color: #0000a0;
+  text-decoration: none;
+}
+`;
+
+const NavLinkPage = styled(Link)`
+justify-content: center; 
+align-items: center;
+color: #fff;
+padding: 10px;
+text-decoration: none;
+border-radius: 4px;
 &:hover {
   background-color: #0000a0;
   text-decoration: none;
@@ -292,12 +283,27 @@ const EmptySpace = styled.div`
   background: transparent;
 `;
 
+const GeneralBG = styled.div`
+  background-image: ${(props) => `url(${props.backgroundUrl})`};
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  min-height: 100vh;
+  background-attachment: fixed;
+  animation: ${fadeIn} 1s ease-in-out;
+  background-color: rgba(255, 255, 255, 0);
+  @media (max-width: 768px) {
+    
+  } 
+`;
+
+
 export {
     fadeIn,
     AboutBackground,
     AboutContent,
     ExtraInfoBox,
-    JaseneksiBackground,
     NavLinkInstagram,
     InstagramImage,
     MobileMenuIcon,
@@ -306,7 +312,6 @@ export {
     MobileMenuItem,
     MobileStyles,
     DesktopStyles,
-    HomeBackground,
     Banner,
     BannerOverlay,
     BannerImage,
@@ -325,5 +330,7 @@ export {
     DropdownContent,
     DropdownTitle,
     Dropdown,
-    EmptySpace
+    EmptySpace,
+    NavLinkPage,
+    GeneralBG
 }

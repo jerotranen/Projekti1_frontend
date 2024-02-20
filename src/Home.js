@@ -2,17 +2,17 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import moment from 'moment-timezone';
-import { HomeBackground, Content, Heading, SubHeading, NavLinkApply, Banner, BannerOverlay, BannerText, BannerImage, ExtraInfoBox, EmptySpace } from "./style"
+import { Content, Heading, SubHeading, NavLinkApply, Banner, BannerOverlay, BannerText, BannerImage, ExtraInfoBox, EmptySpace, GeneralBG } from "./style"
 
 const Home = () => {
-    const shouldShowBanner = false;
+    const shouldShowBanner = true;
     const currentTime = moment().tz('Europe/Helsinki'); 
   
-    const targetTime = moment.tz('2023-11-13T10:50:40', 'Europe/Helsinki');
-  
+    const targetTime = moment.tz('2024-02-14T12:00:00', 'Europe/Helsinki');
+
     return (
       <div>
-        <HomeBackground>
+         <GeneralBG backgroundUrl="https://i.imgur.com/8uWZiLr.jpg">
           <Content>
             <Heading>Teknillinen Skimbakerho</Heading>
             <SubHeading>Turun teknillinen laskettelukerho jo vuodesta 2023!</SubHeading>
@@ -23,16 +23,16 @@ const Home = () => {
           {shouldShowBanner && currentTime.isSameOrAfter(targetTime) && (
             <Banner>
               <BannerOverlay>
-                <Link to="https://docs.google.com/forms/d/e/1FAIpQLScNnwamwFYP9W2dmUy_m9Z1qBsoYf-EQZ5plFGFZF-WAonzwQ/viewform?usp=sf_link">
-                  <BannerText>JUURI NYT!</BannerText>
-                  <BannerImage src="https://i.imgur.com/qWAtaGZ.png" alt="Juuri nyt" />
-                  <BannerText>Teksti tähän</BannerText>
+                <Link to="https://forms.gle/famEeSCG7mgV5d2p7">
+                  <BannerText>Hae Teskin hallitukseen!</BannerText>
+                  <BannerImage src="https://i.imgur.com/IkAuUw3.jpeg" alt="Juuri nyt" />
+                  <BannerText></BannerText>
                 </Link>
               </BannerOverlay>
             </Banner>
           )}
           <EmptySpace></EmptySpace>
-        </HomeBackground>
+        </GeneralBG>
       </div>
     );
   };
