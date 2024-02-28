@@ -11,6 +11,7 @@ import About from "./About"
 import Home from "./Home";
 import Contact from "./Contact"
 import Jaseneksi from "./Jaseneksi";
+import Login from "./Login";
 
 import { GlobalStyle, BackgroundContainer, Header, MobileStyles, DesktopStyles, Logo, LogoImage, MobileMenu, MobileMenuIcon, MobileMenuLines, MobileMenuItem, Nav, DropdownContent, Dropdown, DropdownTitle, NavLink, NavLinkPage, GeneralBG } from "./style";
 
@@ -66,6 +67,7 @@ const App = () => {
                 <NavLinkPage to="/teski/events">Tapahtumat</NavLinkPage>
                 <NavLinkPage to="/teski/about">Toiminta</NavLinkPage>
                 <NavLinkPage to="/teski/contact">Yhteystiedot/Somet</NavLinkPage>
+                <NavLinkPage to="/teski/login">Kirjaudu</NavLinkPage>
               </Nav>
             )}
           </Header>
@@ -84,6 +86,9 @@ const App = () => {
               <MobileMenuItem to="/teski/contact" onClick={closeMobileMenu}>
                 Yhteystiedot/Somet
               </MobileMenuItem>
+              <MobileMenuItem to="/teski/login" onClick={closeMobileMenu}>
+                Kirjaudu
+              </MobileMenuItem>
             </MobileMenu>
           )}
           <Routes>
@@ -93,6 +98,7 @@ const App = () => {
             <Route path="/teski/ski-trips" element={<SkiTrips />} />
             <Route path="/teski/contact" element={<Contact />} />
             <Route path="/teski/jaseneksi" element={<Jaseneksi />} />
+            <Route path="/teski/login" element={<Login />} />
           </Routes>
         </BackgroundContainer>
         </GeneralBG>
