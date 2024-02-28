@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Content } from "./style"
 import axios from 'axios';
 
@@ -11,6 +11,13 @@ const Login = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [submittingRegister, setSubmittingRegister] = useState(false);
     const [submittingLogin, setSubmittingLogin] = useState(false);
+
+    useEffect(() => {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            setLoggedIn(true);
+        }
+    }, []);
 
     const UsernameRegisterHandler = (event) => {
         setUsernameRegister(event.target.value);
@@ -59,8 +66,8 @@ const Login = () => {
         })
         .then(response => {
             console.log('User logged in successfully:', response.data);
-            // TODO: Testaa tää toiminnallisuus, ei toimi kunnolla refresh jälkeen?
-            localStorage.setItem('token', response.data.token);
+            // sessionStorage > localStorage btw
+            sessionStorage.setItem('token', response.data.token);
             setLoggedIn(true);
         })
         .catch(error => {
