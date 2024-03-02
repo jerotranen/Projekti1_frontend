@@ -1,9 +1,8 @@
 import { React, useState} from "react";
 import axios from 'axios'
+import continueWithoutLoggingIn from './Login'
 
-const Applyform = () => {
-
-    // Data / kuvat mitä ilmoon liitetään tähän
+const Applyform = ({ continueWithoutLoggingIn }) => {
 
     const [name, setname] = useState("");
     const [sposti, setsposti] = useState("");
@@ -37,24 +36,19 @@ const Applyform = () => {
             setSubmittingForm(false);
         });
     };
-
     return (
-
-    <form onSubmit={handleFormSubmit}>
-        <label>
-            Nimi:
-            <input type="text" value={name} onChange={setnameHandler} />
-        </label>
-        <br />
-        <label>
-            Sähköposti:
-            <input type="text" value={sposti} onChange={setspostiHandler} />
-        </label>
-        <br />
-        <button type="submit" disabled={submittingForm}>Ilmoittaudu</button>
-    </form>
-
-    )
+        <form onSubmit={handleFormSubmit}>
+            {continueWithoutLoggingIn ? (
+                <>
+                    <label>Nimi: <input type="text" value={name} onChange={setnameHandler} /></label><br />
+                    <label>Sähköposti: <input type="text" value={sposti} onChange={setspostiHandler} /></label><br />
+                    <button type="submit" disabled={submittingForm}>Ilmoittaudu</button>
+                </>
+            ) : (
+                <button type="submit" disabled={submittingForm}>Ilmoittaudu</button>
+            )}
+        </form>
+    );
 }
 
 export default Applyform;

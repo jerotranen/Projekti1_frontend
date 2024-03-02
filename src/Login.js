@@ -5,6 +5,8 @@ import Applyform from "./Applyform";
 
 const Login = () => {
 
+    // TODO: Lisää, että asettaa loggedIn true, mutta ei kirjaudu, jos haluaa jatkaa kirjautumatta
+
     const [usernameRegister, setUsernameRegister] = useState("");
     const [passwordRegister, setPasswordRegister] = useState("");
     const [usernameLogin, setUsernameLogin] = useState("");
@@ -12,6 +14,7 @@ const Login = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [submittingRegister, setSubmittingRegister] = useState(false);
     const [submittingLogin, setSubmittingLogin] = useState(false);
+    const [continueWithoutLoggingIn, setContinueWithoutLoggingIn] = useState(false);
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
@@ -34,6 +37,10 @@ const Login = () => {
 
     const PasswordLoginHandler = (event) => {
         setPasswordLogin(event.target.value);
+    };
+
+    const handleButtonClick = () => {
+        setContinueWithoutLoggingIn(true);
     };
 
     const handleRegisterSubmit = (event) => {
@@ -79,10 +86,11 @@ const Login = () => {
         });
     };
 
-    if (loggedIn === false) {
     return (
         <Content>
-            <div>
+            {!loggedIn && !continueWithoutLoggingIn ? (
+                <div>
+                    <p>Kirjaudu tai jatka kirjautumatta ilmoittautuaksesi tapahtumaan</p>
             <div>
                 <p>Rekisteröidy</p>
                 <form onSubmit={handleRegisterSubmit}>
@@ -115,17 +123,14 @@ const Login = () => {
                     <button type="submit" disabled={submittingLogin}>Kirjaudu</button>
                 </form>
             </div>
-            {loggedIn && <p>Olet kirjautunut sisään!</p>}
-        </div>
+            <div></div>
+                    <button onClick={handleButtonClick}>Jatka kirjautumatta</button>
+                </div>
+            ) : (
+                <Applyform continueWithoutLoggingIn={continueWithoutLoggingIn} />
+            )}
         </Content>
     );
-} 
-
-return (
-    <Content>
-    <Applyform></Applyform>
-    </Content>
-)
 
 }
 
