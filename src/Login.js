@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Content } from "./style"
 import axios from 'axios';
+import Applyform from "./Applyform";
 
 const Login = () => {
 
@@ -78,6 +79,7 @@ const Login = () => {
         });
     };
 
+    if (loggedIn === false) {
     return (
         <Content>
             <div>
@@ -117,6 +119,14 @@ const Login = () => {
         </div>
         </Content>
     );
+} 
+
+return (
+    <Content>
+    <Applyform></Applyform>
+    </Content>
+)
+
 }
 
 export default Login;

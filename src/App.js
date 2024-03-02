@@ -67,7 +67,7 @@ const App = () => {
                 <NavLinkPage to="/teski/events">Tapahtumat</NavLinkPage>
                 <NavLinkPage to="/teski/about">Toiminta</NavLinkPage>
                 <NavLinkPage to="/teski/contact">Yhteystiedot/Somet</NavLinkPage>
-                <NavLinkPage to="/teski/login">Kirjaudu</NavLinkPage>
+                <NavLinkPage to="/teski/ilmoittaudu">llmoittaudu</NavLinkPage>
               </Nav>
             )}
           </Header>
@@ -86,8 +86,8 @@ const App = () => {
               <MobileMenuItem to="/teski/contact" onClick={closeMobileMenu}>
                 Yhteystiedot/Somet
               </MobileMenuItem>
-              <MobileMenuItem to="/teski/login" onClick={closeMobileMenu}>
-                Kirjaudu
+              <MobileMenuItem to="/teski/ilmoittaudu" onClick={closeMobileMenu}>
+                Ilmoittaudu
               </MobileMenuItem>
             </MobileMenu>
           )}
@@ -98,7 +98,7 @@ const App = () => {
             <Route path="/teski/ski-trips" element={<SkiTrips />} />
             <Route path="/teski/contact" element={<Contact />} />
             <Route path="/teski/jaseneksi" element={<Jaseneksi />} />
-            <Route path="/teski/login" element={<Login />} />
+            <Route path="/teski/ilmoittaudu" element={<Login />} />
           </Routes>
         </BackgroundContainer>
         </GeneralBG>
