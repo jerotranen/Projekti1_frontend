@@ -6,11 +6,10 @@ import Applyform from "./Applyform";
 
 const Login = () => {
 
-    // TODO: Lisää, että asettaa loggedIn true, mutta ei kirjaudu, jos haluaa jatkaa kirjautumatta
-
-    const [usernameRegister, setUsernameRegister] = useState("");
+    const [spostiRegister, setspostiRegister] = useState("");
     const [passwordRegister, setPasswordRegister] = useState("");
-    const [usernameLogin, setUsernameLogin] = useState("");
+    const [nameRegister, setNameRegister] = useState("");
+    const [spostiLogin, setspostiLogin] = useState("");
     const [passwordLogin, setPasswordLogin] = useState("");
     const [loggedIn, setLoggedIn] = useState(false);
     const [submittingRegister, setSubmittingRegister] = useState(false);
@@ -24,16 +23,20 @@ const Login = () => {
         }
     }, []);
 
-    const UsernameRegisterHandler = (event) => {
-        setUsernameRegister(event.target.value);
+    const spostiRegisterHandler = (event) => {
+        setspostiRegister(event.target.value);
     };
 
     const PasswordRegisterHandler = (event) => {
         setPasswordRegister(event.target.value);
     };
 
-    const UsernameLoginHandler = (event) => {
-        setUsernameLogin(event.target.value);
+    const nameRegisterHandler = (event) => {
+        setNameRegister(event.target.value);
+    };
+
+    const spostiLoginHandler = (event) => {
+        setspostiLogin(event.target.value);
     };
 
     const PasswordLoginHandler = (event) => {
@@ -49,13 +52,15 @@ const Login = () => {
         setSubmittingRegister(true);
 
         axios.post('http://localhost:3003/users', {
-            username: usernameRegister,
+            sposti: spostiRegister,
+            name: nameRegister,
             password: passwordRegister
         })
         .then(response => {
             console.log('User registered successfully:', response.data);
-            setUsernameRegister("");
+            setspostiRegister("");
             setPasswordRegister("");
+            setNameRegister("");
         })
         .catch(error => {
             console.error('Error registering user:', error);
@@ -70,13 +75,15 @@ const Login = () => {
         setSubmittingLogin(true);
 
         axios.post('http://localhost:3003/login', {
-            username: usernameLogin,
+            sposti: spostiLogin,
             password: passwordLogin
         })
         .then(response => {
             console.log('User logged in successfully:', response.data);
             // sessionStorage > localStorage btw
             sessionStorage.setItem('token', response.data.token);
+            sessionStorage.setItem('sposti', response.data.sposti);
+            sessionStorage.setItem('name', response.data.name);
             setLoggedIn(true);
         })
         .catch(error => {
@@ -88,7 +95,10 @@ const Login = () => {
     };
     return (
         <AboutContent>
-        <Content><BannerImage src="https://i.imgur.com/ECdoRDA.jpeg"/></Content>
+        <Content>
+            <p>Williamin tikanheittokisa 20.4.2024</p>
+            <BannerImage src="https://i.imgur.com/ECdoRDA.jpeg"/>
+        </Content>
         <Content>
             {!loggedIn && !continueWithoutLoggingIn ? (
                 <div>
@@ -97,8 +107,13 @@ const Login = () => {
                 <p>Rekisteröidy</p>
                 <form onSubmit={handleRegisterSubmit}>
                     <label>
-                        Käyttäjätunnus:
-                        <input type="text" value={usernameRegister} onChange={UsernameRegisterHandler} />
+                        Sähköposti:
+                        <input type="text" value={spostiRegister} onChange={spostiRegisterHandler} />
+                    </label>
+                    <br />
+                    <label>
+                        Etu + sukunimi:
+                        <input type="text" value={nameRegister} onChange={nameRegisterHandler} />
                     </label>
                     <br />
                     <label>
@@ -113,8 +128,8 @@ const Login = () => {
                 <p>Kirjaudu</p>
                 <form onSubmit={handleLoginSubmit}>
                     <label>
-                        Käyttäjätunnus:
-                        <input type="text" value={usernameLogin} onChange={UsernameLoginHandler} />
+                        Sähköposti:
+                        <input type="text" value={spostiLogin} onChange={spostiLoginHandler} />
                     </label>
                     <br />
                     <label>
