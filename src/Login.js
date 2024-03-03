@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Content } from "./style"
+import { AboutContent } from "./style"
+import styled from 'styled-components';
 import axios from 'axios';
 import Applyform from "./Applyform";
 
@@ -85,8 +86,9 @@ const Login = () => {
             setSubmittingLogin(false);
         });
     };
-
     return (
+        <AboutContent>
+        <Content><BannerImage src="https://i.imgur.com/ECdoRDA.jpeg"/></Content>
         <Content>
             {!loggedIn && !continueWithoutLoggingIn ? (
                 <div>
@@ -130,8 +132,32 @@ const Login = () => {
                 <Applyform continueWithoutLoggingIn={continueWithoutLoggingIn} />
             )}
         </Content>
+        </AboutContent>
     );
 
 }
+
+const Content = styled.div`
+  max-width: 600px;
+  margin: 0px auto;
+  padding: 20px;
+  background-color: rgba(247, 247, 247, 0.93);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  p {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); 
+  }
+  @media (max-width: 768px) {
+    max-width: 70%;
+    padding: 20px; 
+    font-size: 16px;
+  }
+`;
+
+const BannerImage = styled.img`
+width: 100%;
+max-width: 300px;
+height: auto;
+`;
 
 export default Login;

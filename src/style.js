@@ -30,7 +30,15 @@ const AboutContent = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
   text-align: center;
   height: 780px;
-  overflow-y: auto;
+  overflow-y: auto; /* Use 'auto' to show scrollbar when needed */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: transparent transparent; /* For Firefox */
+  &::-webkit-scrollbar {
+    width: 6px; /* Width of the scrollbar */
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Color of the thumb (drag) */
+  }
   @media (max-width: 768px) {
     height: 650px;
   }
