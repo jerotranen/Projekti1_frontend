@@ -15,6 +15,7 @@ const Login = () => {
     const [submittingRegister, setSubmittingRegister] = useState(false);
     const [submittingLogin, setSubmittingLogin] = useState(false);
     const [continueWithoutLoggingIn, setContinueWithoutLoggingIn] = useState(false);
+    const [registerError, setregisterError] = useState("");
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
@@ -61,9 +62,15 @@ const Login = () => {
             setspostiRegister("");
             setPasswordRegister("");
             setNameRegister("");
+            setregisterError("");
         })
         .catch(error => {
-            console.error('Error registering user:', error);
+            if (error.response && error.response.data && error.response.data.error) {
+                setregisterError(error.response.data.error);
+            } else {
+                console.error('Error registering user:', error);
+                setregisterError('An error occurred while registering the user');
+            }
         })
         .finally(() => {
             setSubmittingRegister(false);
@@ -123,6 +130,7 @@ const Login = () => {
                     <br />
                     <button type="submit" disabled={submittingRegister}>Rekisteröidy</button>
                 </form>
+                {registerError && <p style={{ color: 'red' }}>{registerError}</p>}
             </div>
             <div>
                 <p>Kirjaudu</p>

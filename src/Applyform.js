@@ -8,6 +8,7 @@ const Applyform = ({ continueWithoutLoggingIn }) => {
     const [sposti, setsposti] = useState("");
     const [submittingForm, setSubmittingForm] = useState(false);
     const [spostilogged, setspostilogged] = useState("");
+    const [ilmoError, setilmoError] = useState("");
 
     useEffect(() => {
         const sposti = sessionStorage.getItem('sposti');
@@ -54,9 +55,15 @@ const Applyform = ({ continueWithoutLoggingIn }) => {
             console.log('Form sent successfully:', response.data);
             setname("");
             setsposti("");
+            setilmoError("");
         })
         .catch(error => {
-            console.error('Error sending form:', error);
+            if (error.response && error.response.data && error.response.data.error) {
+                setilmoError(error.response.data.error);
+            } else {
+                console.error('Error sending form:', error);
+                setilmoError('An error occurred while submitting the form');
+            }
         })
         .finally(() => {
             setSubmittingForm(false);
@@ -73,6 +80,7 @@ const Applyform = ({ continueWithoutLoggingIn }) => {
             ) : (
                 <button type="submit" disabled={submittingForm}>Ilmoittaudu</button>
             )}
+                {ilmoError && <p style={{ color: 'red' }}>{ilmoError}</p>}
         </form>
     );
 }
