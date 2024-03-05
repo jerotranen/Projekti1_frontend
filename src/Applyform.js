@@ -2,7 +2,7 @@ import { React, useState, useEffect} from "react";
 import axios from 'axios'
 import continueWithoutLoggingIn from './Login'
 
-const Applyform = ({ continueWithoutLoggingIn }) => {
+const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
 
     const [name, setname] = useState("");
     const [sposti, setsposti] = useState("");
@@ -81,6 +81,11 @@ const Applyform = ({ continueWithoutLoggingIn }) => {
                 <button type="submit" disabled={submittingForm}>Ilmoittaudu</button>
             )}
                 {ilmoError && <p style={{ color: 'red' }}>{ilmoError}</p>}
+                {isAdmin && (
+                <div>
+                    <p>This is a special information box for administrators.</p>
+                </div>
+            )}
         </form>
     );
 }

@@ -16,6 +16,7 @@ const Login = () => {
     const [submittingLogin, setSubmittingLogin] = useState(false);
     const [continueWithoutLoggingIn, setContinueWithoutLoggingIn] = useState(false);
     const [registerError, setregisterError] = useState("");
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
@@ -91,7 +92,9 @@ const Login = () => {
             sessionStorage.setItem('token', response.data.token);
             sessionStorage.setItem('sposti', response.data.sposti);
             sessionStorage.setItem('name', response.data.name);
+            sessionStorage.setItem('id', response.data.id);
             setLoggedIn(true);
+            setIsAdmin(response.data.isAdmin);
         })
         .catch(error => {
             console.error('Error logging in:', error);
@@ -152,7 +155,7 @@ const Login = () => {
                     <button onClick={handleButtonClick}>Jatka kirjautumatta</button>
                 </div>
             ) : (
-                <Applyform continueWithoutLoggingIn={continueWithoutLoggingIn} />
+                <Applyform continueWithoutLoggingIn={continueWithoutLoggingIn} isAdmin={isAdmin} />
             )}
         </Content>
         </AboutContent>
