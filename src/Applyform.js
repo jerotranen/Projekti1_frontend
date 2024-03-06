@@ -4,11 +4,23 @@ import continueWithoutLoggingIn from './Login'
 
 const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
 
+    const [ilmot, setIlmot] = useState([]);
     const [name, setname] = useState("");
     const [sposti, setsposti] = useState("");
     const [submittingForm, setSubmittingForm] = useState(false);
     const [spostilogged, setspostilogged] = useState("");
     const [ilmoError, setilmoError] = useState("");
+    const [isIlmoOpen, setIlmoOpen] = useState(false);
+
+    useEffect(() => {
+        axios.get('http://localhost:3003/status')
+            .then(response => {
+                setIlmoOpen(response.data.isOpen);
+            })
+            .catch(error => {
+                console.error('Error fetching registration status:', error);
+            });
+    }, []);
 
     useEffect(() => {
         const sposti = sessionStorage.getItem('sposti');
@@ -24,12 +36,36 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
         }
     }, []);
 
+    useEffect(() => {
+        axios.get('http://localhost:3003/ilmot')
+            .then(response => {
+                setIlmot(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching "ilmot" data:', error);
+            });
+    }, []);
+
     const setnameHandler = (event) => {
         setname(event.target.value);
     };
 
     const setspostiHandler = (event) => {
         setsposti(event.target.value);
+    };
+
+    const handleDeleteAll = () => {
+        axios.delete('http://localhost:3003/ilmot')
+    };
+
+    const toggleIlmoStatus = async () => {
+        try {
+            const newStatus = !isIlmoOpen;
+            await axios.post('http://localhost:3003/status', { isOpen: newStatus });
+            setIlmoOpen(newStatus);
+        } catch (error) {
+            console.error('Error toggling registration status:', error);
+        }
     };
 
     const handleFormSubmit = (event) => {
@@ -73,17 +109,36 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
         <form onSubmit={handleFormSubmit}>
             {continueWithoutLoggingIn ? (
                 <>
-                    <label>Nimi: <input type="text" value={name} onChange={setnameHandler} /></label><br />
-                    <label>Sähköposti: <input type="text" value={sposti} onChange={setspostiHandler} /></label><br />
-                    <button type="submit" disabled={submittingForm}>Ilmoittaudu</button>
+                    {isIlmoOpen ? (
+                <>
+                        <label>Nimi: <input type="text" value={name} onChange={setnameHandler} /></label><br />
+                        <label>Sähköposti: <input type="text" value={sposti} onChange={setspostiHandler} /></label><br />
+                        <button type="submit" disabled={submittingForm}>Ilmoittaudu</button>
+                </>
+                    ) : 'Ilmoittautuminen on suljettu :/'}
                 </>
             ) : (
-                <button type="submit" disabled={submittingForm}>Ilmoittaudu</button>
+                <>
+                {isIlmoOpen ? (
+                    <>
+                        <button type="submit" disabled={submittingForm}>Ilmoittaudu</button>
+                    </>
+                        ) : 'Ilmoittautuminen on suljettu :/'}
+                    </>
             )}
                 {ilmoError && <p style={{ color: 'red' }}>{ilmoError}</p>}
                 {isAdmin && (
                 <div>
-                    <p>This is a special information box for administrators.</p>
+                    <div>
+                    <button onClick={handleDeleteAll}>Poista kaikki ilmoittautumiset</button>
+                    <button onClick={toggleIlmoStatus}>{isIlmoOpen ? 'Sulje ilmo' : 'Avaa ilmo'}</button> 
+                    </div>
+                    <h2>Ilmoittautumiset</h2>
+                        <ul>
+                            {ilmot.map(ilmo => (
+                                <li key={ilmo._id}>{ilmo.name} - {ilmo.sposti}</li>
+                            ))}
+                        </ul>
                 </div>
             )}
         </form>
