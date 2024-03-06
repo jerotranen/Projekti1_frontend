@@ -4,6 +4,7 @@ import continueWithoutLoggingIn from './Login'
 
 const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
 
+    const [imageURL, setImageURL] = useState("");
     const [ilmot, setIlmot] = useState([]);
     const [name, setname] = useState("");
     const [sposti, setsposti] = useState("");
@@ -18,7 +19,7 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
                 setIlmoOpen(response.data.isOpen);
             })
             .catch(error => {
-                console.error('Error fetching registration status:', error);
+                console.error('Status error:', error);
             });
     }, []);
 
@@ -36,15 +37,18 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
         }
     }, []);
 
+    // Ilmot näytetään tietoturvasyistä vain adminille
     useEffect(() => {
-        axios.get('http://localhost:3003/ilmot')
-            .then(response => {
-                setIlmot(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching "ilmot" data:', error);
-            });
-    }, []);
+        if (isAdmin) {
+            axios.get('http://localhost:3003/ilmot')
+                .then(response => {
+                    setIlmot(response.data);
+                })
+                .catch(error => {
+                    console.error('Error getting ilmot:', error);
+                });
+        }
+    }, [isAdmin]);
 
     const setnameHandler = (event) => {
         setname(event.target.value);
@@ -52,6 +56,10 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
 
     const setspostiHandler = (event) => {
         setsposti(event.target.value);
+    };
+
+    const handleImageURL = (event) => {
+        setImageURL(event.target.value);
     };
 
     const handleDeleteAll = () => {
@@ -64,9 +72,14 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
             await axios.post('http://localhost:3003/status', { isOpen: newStatus });
             setIlmoOpen(newStatus);
         } catch (error) {
-            console.error('Error toggling registration status:', error);
+            console.error('Error toggling status:', error);
         }
     };
+
+    const handleURLsubmit = (event) => {
+        event.preventDefault();
+        axios.post('http://localhost:3003/image', { imageURL })
+    }
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -105,7 +118,7 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
             setSubmittingForm(false);
         });
     };
-    return (
+    return (<div>
         <form onSubmit={handleFormSubmit}>
             {continueWithoutLoggingIn ? (
                 <>
@@ -125,11 +138,15 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
                     </>
                         ) : 'Ilmoittautuminen on suljettu :/'}
                     </>
-            )}
+            )} </form>
                 {ilmoError && <p style={{ color: 'red' }}>{ilmoError}</p>}
                 {isAdmin && (
                 <div>
                     <div>
+                    <form onSubmit={handleURLsubmit}>  
+                        <input type="text" value={imageURL} onChange={handleImageURL} />
+                        <button type="submit">Lähetä URL</button>
+                    </form>
                     <button onClick={handleDeleteAll}>Poista kaikki ilmoittautumiset</button>
                     <button onClick={toggleIlmoStatus}>{isIlmoOpen ? 'Sulje ilmo' : 'Avaa ilmo'}</button> 
                     </div>
@@ -141,7 +158,7 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
                         </ul>
                 </div>
             )}
-        </form>
+            </div>
     );
 }
 

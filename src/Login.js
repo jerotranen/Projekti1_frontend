@@ -17,12 +17,23 @@ const Login = () => {
     const [continueWithoutLoggingIn, setContinueWithoutLoggingIn] = useState(false);
     const [registerError, setregisterError] = useState("");
     const [isAdmin, setIsAdmin] = useState(false);
+    const [imageURL, setImageUrl] = useState("");
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
         if (token) {
             setLoggedIn(true);
         }
+    }, []);
+
+    useEffect(() => {
+        axios.get('http://localhost:3003/image')
+            .then(response => {
+                setImageUrl(response.data.imageURL);
+            })
+            .catch(error => {
+                console.error('Error fetching image URL:', error);
+            });
     }, []);
 
     const spostiRegisterHandler = (event) => {
@@ -103,11 +114,14 @@ const Login = () => {
             setSubmittingLogin(false);
         });
     };
+
+    // https://i.imgur.com/ECdoRDA.jpeg
+
     return (
         <AboutContent>
         <Content>
             <p>Williamin tikanheittokisa 20.4.2024</p>
-            <BannerImage src="https://i.imgur.com/ECdoRDA.jpeg"/>
+             {imageURL && <BannerImage src={imageURL} />}
         </Content>
         <Content>
             {!loggedIn && !continueWithoutLoggingIn ? (
@@ -155,7 +169,7 @@ const Login = () => {
                     <button onClick={handleButtonClick}>Jatka kirjautumatta</button>
                 </div>
             ) : (
-                <Applyform continueWithoutLoggingIn={continueWithoutLoggingIn} isAdmin={isAdmin} />
+                <Applyform continueWithoutLoggingIn={continueWithoutLoggingIn} isAdmin={isAdmin}/>
             )}
         </Content>
         </AboutContent>
