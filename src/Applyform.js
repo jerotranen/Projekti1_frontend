@@ -12,6 +12,7 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
     const [spostilogged, setspostilogged] = useState("");
     const [ilmoError, setilmoError] = useState("");
     const [isIlmoOpen, setIlmoOpen] = useState(false);
+    const [formToDelete, setFormToDelete] = useState("");
 
     useEffect(() => {
         axios.get('http://localhost:3003/status')
@@ -64,13 +65,24 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
 
     const handleDeleteAll = () => {
         axios.delete('http://localhost:3003/ilmot')
+        window.location.reload();
     };
+
+    const handleFormToDelete = (event) => {
+        setFormToDelete(event.target.value);
+    };
+
+    const handleDeleteOne = () => {
+        if (formToDelete.trim() !== "") {
+            axios.delete(`http://localhost:3003/ilmot/${formToDelete}`)
+    } }
 
     const toggleIlmoStatus = async () => {
         try {
             const newStatus = !isIlmoOpen;
             await axios.post('http://localhost:3003/status', { isOpen: newStatus });
             setIlmoOpen(newStatus);
+            window.location.reload();
         } catch (error) {
             console.error('Error toggling status:', error);
         }
@@ -145,7 +157,11 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
                     <div>
                     <form onSubmit={handleURLsubmit}>  
                         <input type="text" value={imageURL} onChange={handleImageURL} />
-                        <button type="submit">Lähetä URL</button>
+                        <button type="submit">Lähetä URL kuvaan</button>
+                    </form>
+                    <form onSubmit={handleDeleteOne}>  
+                        <input type="text" value={formToDelete} onChange={handleFormToDelete} />
+                        <button type="submit">Poista henkilön ilmo sähköpostilla</button>
                     </form>
                     <button onClick={handleDeleteAll}>Poista kaikki ilmoittautumiset</button>
                     <button onClick={toggleIlmoStatus}>{isIlmoOpen ? 'Sulje ilmo' : 'Avaa ilmo'}</button> 

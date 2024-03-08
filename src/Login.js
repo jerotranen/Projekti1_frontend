@@ -23,8 +23,17 @@ const Login = () => {
         const token = sessionStorage.getItem('token');
         if (token) {
             setLoggedIn(true);
+            // Tällä isAdmin pysyy true vaikka refresh
+            const isAdminStored = sessionStorage.getItem('isAdmin');
+            if (isAdminStored === 'true') {
+                setIsAdmin(true);
+            }
         }
     }, []);
+
+    useEffect(() => {
+        sessionStorage.setItem('isAdmin', isAdmin ? 'true' : 'false');
+    }, [isAdmin]);
 
     useEffect(() => {
         axios.get('http://localhost:3003/image')
