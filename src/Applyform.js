@@ -1,11 +1,13 @@
 import { React, useState, useEffect} from "react";
 import axios from 'axios'
 import continueWithoutLoggingIn from './Login'
+import { SubHeading } from './style'
 
 const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
 
     const [imageURL, setImageURL] = useState("");
     const [ilmot, setIlmot] = useState([]);
+    const [formExists, setFormExists] = useState(false);
     const [name, setname] = useState("");
     const [sposti, setsposti] = useState("");
     const [submittingForm, setSubmittingForm] = useState(false);
@@ -38,7 +40,18 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
         }
     }, []);
 
-    // Ilmot näytetään tietoturvasyistä vain adminille
+    useEffect(() => {
+        axios.get(`http://localhost:3003/ilmot/${spostilogged}`)
+        .then(response => {
+            if (response.data) {
+                setFormExists(true);
+            } else {
+                setFormExists(false);
+            }
+        })
+    })
+
+    // Kaikki ilmot näytetään tietoturvasyistä vain adminille
     useEffect(() => {
         if (isAdmin) {
             axios.get('http://localhost:3003/ilmot')
@@ -144,6 +157,7 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
                 </>
             ) : (
                 <>
+                {formExists ? (<p>Olet ilmoittautunut tapahtumaan!</p>) : (<p>Et ole ilmoittautunut tapahtumaan</p>)}
                 {isIlmoOpen ? (
                     <>
                         <button type="submit" disabled={submittingForm}>Ilmoittaudu</button>
@@ -154,6 +168,7 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
                 {ilmoError && <p style={{ color: 'red' }}>{ilmoError}</p>}
                 {isAdmin && (
                 <div>
+                    <h1>Hallintapaneeli Admin-käyttäjälle</h1>
                     <div>
                     <form onSubmit={handleURLsubmit}>  
                         <input type="text" value={imageURL} onChange={handleImageURL} />
@@ -166,7 +181,7 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
                     <button onClick={handleDeleteAll}>Poista kaikki ilmoittautumiset</button>
                     <button onClick={toggleIlmoStatus}>{isIlmoOpen ? 'Sulje ilmo' : 'Avaa ilmo'}</button> 
                     </div>
-                    <h2>Ilmoittautumiset</h2>
+                    <SubHeading>Ilmoittautumiset</SubHeading>
                         <ul>
                             {ilmot.map(ilmo => (
                                 <li key={ilmo._id}>{ilmo.name} - {ilmo.sposti}</li>
