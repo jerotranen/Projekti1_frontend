@@ -1,7 +1,7 @@
 import { React, useState, useEffect} from "react";
 import axios from 'axios'
 import continueWithoutLoggingIn from './Login'
-import { SubHeading } from './style'
+import { SubHeading, Wrapper } from './style'
 
 const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
 
@@ -17,7 +17,7 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
     const [formToDelete, setFormToDelete] = useState("");
 
     useEffect(() => {
-        axios.get('http://localhost:3003/status')
+        axios.get('http://13.51.198.237:5001/status')
             .then(response => {
                 setIlmoOpen(response.data.isOpen);
             })
@@ -41,7 +41,7 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
     }, []);
 
     useEffect(() => {
-        axios.get(`http://localhost:3003/ilmot/${spostilogged}`)
+        axios.get(`http://13.51.198.237:5001/ilmot/${spostilogged}`)
         .then(response => {
             if (response.data) {
                 setFormExists(true);
@@ -54,7 +54,7 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
     // Kaikki ilmot näytetään tietoturvasyistä vain adminille
     useEffect(() => {
         if (isAdmin) {
-            axios.get('http://localhost:3003/ilmot')
+            axios.get('http://13.51.198.237:5001/ilmot')
                 .then(response => {
                     setIlmot(response.data);
                 })
@@ -77,7 +77,7 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
     };
 
     const handleDeleteAll = () => {
-        axios.delete('http://localhost:3003/ilmot')
+        axios.delete('http://13.51.198.237:5001/ilmot')
         window.location.reload();
     };
 
@@ -87,13 +87,13 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
 
     const handleDeleteOne = () => {
         if (formToDelete.trim() !== "") {
-            axios.delete(`http://localhost:3003/ilmot/${formToDelete}`)
+            axios.delete(`http://13.51.198.237:5001/${formToDelete}`)
     } }
 
     const toggleIlmoStatus = async () => {
         try {
             const newStatus = !isIlmoOpen;
-            await axios.post('http://localhost:3003/status', { isOpen: newStatus });
+            await axios.post('http://13.51.198.237:5001/status', { isOpen: newStatus });
             setIlmoOpen(newStatus);
             window.location.reload();
         } catch (error) {
@@ -103,7 +103,7 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
 
     const handleURLsubmit = (event) => {
         event.preventDefault();
-        axios.post('http://localhost:3003/image', { imageURL })
+        axios.post('http://13.51.198.237:5001/image', { imageURL })
     }
 
     const handleFormSubmit = (event) => {
@@ -124,7 +124,7 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
             };
         }
 
-        axios.post('http://localhost:3003/ilmot', postData)
+        axios.post('http://13.51.198.237:5001/ilmot', postData)
         .then(response => {
             console.log('Form sent successfully:', response.data);
             setname("");
@@ -148,10 +148,11 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
             {continueWithoutLoggingIn ? (
                 <>
                     {isIlmoOpen ? (
-                <>
+                <>  <Wrapper>
                         <label>Nimi: <input type="text" value={name} onChange={setnameHandler} /></label><br />
                         <label>Sähköposti: <input type="text" value={sposti} onChange={setspostiHandler} /></label><br />
                         <button type="submit" disabled={submittingForm}>Ilmoittaudu</button>
+                    </Wrapper>
                 </>
                     ) : 'Ilmoittautuminen on suljettu :/'}
                 </>

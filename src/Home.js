@@ -2,7 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import moment from 'moment-timezone';
-import { Content, Heading, SubHeading, NavLinkApply, Banner, BannerOverlay, BannerText, BannerImage, ExtraInfoBox, EmptySpace, GeneralBG } from "./style"
+import { Content, Heading, SubHeading, NavLinkApply, Banner, StyledLink, BannerOverlay, BannerText, BannerImage, ExtraInfoBox, EmptySpace, GeneralBG } from "./style"
 
 const Home = () => {
     const shouldShowBanner = true;
@@ -23,11 +23,11 @@ const Home = () => {
           {shouldShowBanner && currentTime.isSameOrAfter(targetTime) && (
             <Banner>
               <BannerOverlay>
-                <Link to="https://forms.gle/famEeSCG7mgV5d2p7">
+                <StyledLink to="https://forms.gle/famEeSCG7mgV5d2p7">
                   <BannerText>Hae Teskin hallitukseen!</BannerText>
                   <BannerImage src="https://i.imgur.com/IkAuUw3.jpeg" alt="Juuri nyt" />
                   <BannerText></BannerText>
-                </Link>
+                </StyledLink>
               </BannerOverlay>
             </Banner>
           )}

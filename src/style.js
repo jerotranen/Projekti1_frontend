@@ -11,6 +11,21 @@ const fadeIn = keyframes`
   }
 `;
 
+const Wrapper = styled.div`
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    label,
+    input {
+        display: flex;
+        flex-direction: column;
+    }
+`;
+
 const AboutBackground = styled.div`
   position: relative;
   background-image: url('https://i.imgur.com/TX7zQsw.jpg');
@@ -30,15 +45,6 @@ const AboutContent = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
   text-align: center;
   height: 780px;
-  overflow-y: auto; /* Use 'auto' to show scrollbar when needed */
-  scrollbar-width: thin; /* For Firefox */
-  scrollbar-color: transparent transparent; /* For Firefox */
-  &::-webkit-scrollbar {
-    width: 6px; /* Width of the scrollbar */
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: transparent; /* Color of the thumb (drag) */
-  }
   @media (max-width: 768px) {
     height: 650px;
   }
@@ -114,48 +120,37 @@ body {
 `;
 
 const Banner = styled.div`
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-position: absolute;
-top: 60%;
-left: 0;
-right: 0;
-transform: translateY(-50%);
-z-index: 1;
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 `;
 
 const BannerOverlay = styled.div`
-background-color: #002278;
-padding: 0.5%;
-border-radius: 5px;
-text-align: center;
-width: 30%;
-max-width: 400px;
-margin: 0 auto;
-`;
-
-const bannerTextStyles = css`
-font-size: 20px;
-color: #FFD700;
-margin: 0;
-padding: 10px;
-
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 80%;
 `;
 
 const BannerText = styled.p`
-${bannerTextStyles}
+  font-size: 20px;
+  color: #FFD700;
+  margin: 10px 0;
+  text-decoration: none;
+`;
 
-@media (max-width: 768px) {
-  font-size: 16px;
-}
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;
 
 const BannerImage = styled.img`
-width: 100%;
-max-width: 400px;
-height: auto;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
 `;
 
 const NavLinkApply = styled(Link)`
@@ -340,5 +335,7 @@ export {
     Dropdown,
     EmptySpace,
     NavLinkPage,
-    GeneralBG
+    GeneralBG,
+    Wrapper,
+    StyledLink
 }
