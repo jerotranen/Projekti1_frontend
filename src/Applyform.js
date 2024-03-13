@@ -87,7 +87,7 @@ const Applyform = ({ continueWithoutLoggingIn, isAdmin }) => {
 
     const handleDeleteOne = () => {
         if (formToDelete.trim() !== "") {
-            axios.delete(`http://localhost:3003/${formToDelete}`)
+            axios.delete(`http://localhost:3003/ilmot/${formToDelete}`)
     } }
 
     const toggleIlmoStatus = async () => {
