@@ -36,7 +36,7 @@ const Login = () => {
     }, [isAdmin]);
 
     useEffect(() => {
-        axios.get('http://13.51.198.237:5001/image')
+        axios.get('https://13.51.198.237:5001/image')
             .then(response => {
                 setImageUrl(response.data.imageURL);
             })
@@ -73,7 +73,7 @@ const Login = () => {
         event.preventDefault();
         setSubmittingRegister(true);
 
-        axios.post('http://13.51.198.237:5001/users', {
+        axios.post('https://13.51.198.237:5001/users', {
             sposti: spostiRegister,
             name: nameRegister,
             password: passwordRegister
@@ -102,7 +102,7 @@ const Login = () => {
         event.preventDefault();
         setSubmittingLogin(true);
 
-        axios.post('http://13.51.198.237:5001/login', {
+        axios.post('https://13.51.198.237:5001/login', {
             sposti: spostiLogin,
             password: passwordLogin
         })
